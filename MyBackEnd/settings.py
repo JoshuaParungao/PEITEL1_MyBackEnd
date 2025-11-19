@@ -63,10 +63,13 @@ ROOT_URLCONF = 'MyBackEnd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+    # Include both the project-level templates directory and the project package
+    # templates directory (MyBackEnd/templates) so homepage.html is found.
+    'DIRS': [BASE_DIR / "templates", BASE_DIR / "MyBackEnd" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views as project_views
+from registration import views as reg_views
 
 
 urlpatterns = [
+    path('', project_views.homepage_view, name='home_html'),
+    # Project routes
     path('admin/', admin.site.urls),
+    # Include app-level routes under /registration/
     path('registration/', include('registration.urls')),
-] 
+]

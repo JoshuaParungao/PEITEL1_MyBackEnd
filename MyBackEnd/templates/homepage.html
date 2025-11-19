@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Homepage — User Registration Demo</title>
+
+  <style>
+    /* ===== BACKGROUND (same as user list page) ===== */
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding-top: 120px;
+      background: #FFFFFF;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background-image: url('https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/525622336_1211091961058262_2673364536049496629_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=gz4etc-vgvgQ7kNvwET3wr_&_nc_oc=Adkri9EAZfjB6kWhtrk5HZrN5okDxNas5jn5flZRa3VTQ3WMOinbd6h0lE-UIYMvJMc&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=_UcS0m4iDPLHD6wX6Fp7LQ&oh=00_AfgguKNGXCkEyey26RCm4wQPP0cdhH-vBaXfXN1aJXAwuw&oe=6922DDCB');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 32%; /* same size */
+      background-attachment: fixed;
+
+      opacity: 0.5; /* 50% opacity */
+      z-index: -1;
+    }
+
+    /* ===== BUTTON ===== */
+    .btn {
+      padding: 12px 20px;
+      background: #2b6cb0;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: #1e4e80;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Welcome to the User Registration </h1>
+
+  {% load static %}
+  <a href="{% url 'registration:login_html' %}" class="btn">Go to Login</a>
+
+</body>
+</html>

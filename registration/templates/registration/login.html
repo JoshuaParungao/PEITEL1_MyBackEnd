@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+        <meta charset="utf-8" />
+        <title>Login</title>
+    <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box }
+
+    /* Body with background only on this page */
+    body {
+        background-color: #ffffff; 
+        background-image: url('https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/525622336_1211091961058262_2673364536049496629_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=gz4etc-vgvgQ7kNvwET3wr_&_nc_oc=Adkri9EAZfjB6kWhtrk5HZrN5okDxNas5jn5flZRa3VTQ3WMOinbd6h0lE-UIYMvJMc&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=_UcS0m4iDPLHD6wX6Fp7LQ&oh=00_AfgguKNGXCkEyey26RCm4wQPP0cdhH-vBaXfXN1aJXAwuw&oe=6922DDCB');
+        background-repeat: no-repeat;
+        background-position: left top; 
+        background-size: 32%;             
+        background-attachment: fixed;
+        background-position-x: 350px;      
+        margin-left: 400px;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    /* Login box styling */
+    .login-box {
+        width: 500px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 35px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        animation: slideIn 0.5s ease-out;
+    }
+
+    /* Slide-in animation */
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box h2 {
+        color: #072758;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    .login-box input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 2px solid #ebebeb;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+    }
+
+    .login-box input:focus {
+        outline: none;
+        border-color: #072758;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #072758 0%, #0d3a6f 100%);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(7, 39, 88, 0.4);
+    }
+
+    .login-box p {
+        margin-top: 15px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .login-box a { color: #072758; text-decoration:none; font-weight:600 }
+    .login-box a:hover { text-decoration:underline }
+
+    .error-message { color:#ff4444; margin-bottom:15px; font-weight:500 }
+    </style>
+  </head>
+  <body>
+
+  <div class="login-box">
+      <h2>Login</h2>
+
+      <!-- Display error messages -->
+      {% if messages %}
+          {% for message in messages %}
+              <p class="error-message">{{ message }}</p>
+          {% endfor %}
+      {% endif %}
+
+      <!-- Login Form -->
+      <form method="POST">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="password" name="password" placeholder="Password" required>
+
+          <button class="login-btn">Log In</button>
+      </form>
+
+      <p>Don't have an account? <a href="/signup/">Sign up</a></p>
+  </div>
+
+  </body>
+  </html>
