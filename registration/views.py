@@ -110,3 +110,137 @@ def users_html(request):
         'users': users,
         'current_user': request.session.get('user_name')
     })
+
+
+# ---------- CREATE USER ----------
+@login_required_view
+def user_create_html(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        gender = request.POST.get('gender', '').strip()
+        profile_picture = request.FILES.get('profile_picture')
+
+        if not first_name or not last_name or not email or not password:
+            messages.error(request, "First name, last name, email and password are required.")
+            return render(request, 'registration/user_form.html', {
+                'title': 'Add User',
+                'user': None,
+            })
+
+        user = UserRegistration(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=make_password(password),
+            gender=gender,
+        )
+
+        if profile_picture:
+            user.profile_picture = profile_picture
+
+        user.save()
+        messages.success(request, "User created successfully. You can now log in.")
+        return redirect('registration:login_html')
+
+    return render(request, 'registration/user_form.html', {
+        'title': 'Add User',
+        'user': None,
+    })
+
+
+# Public signup view (anonymous users)
+def signup_html(request):
+    # Reuse the same logic as user_create_html but allow anonymous access
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        gender = request.POST.get('gender', '').strip()
+        profile_picture = request.FILES.get('profile_picture')
+
+        if not first_name or not last_name or not email or not password:
+            messages.error(request, "First name, last name, email and password are required.")
+            return render(request, 'registration/user_form.html', {
+                'title': 'Sign up',
+                'user': None,
+            })
+
+        user = UserRegistration(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=make_password(password),
+            gender=gender,
+        )
+
+        if profile_picture:
+            user.profile_picture = profile_picture
+
+        user.save()
+        messages.success(request, "Account created. You can now log in.")
+        return redirect('registration:login_html')
+
+    return render(request, 'registration/user_form.html', {
+        'title': 'Sign up',
+        'user': None,
+    })
+
+
+# ---------- UPDATE USER ----------
+@login_required_view
+def user_update_html(request, pk):
+    user = get_object_or_404(UserRegistration, pk=pk)
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        gender = request.POST.get('gender', '').strip()
+        profile_picture = request.FILES.get('profile_picture')
+
+        if not first_name or not last_name or not email:
+            messages.error(request, "First name, last name and email are required.")
+            return render(request, 'registration/user_form.html', {
+                'title': 'Edit User',
+                'user': user,
+            })
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.gender = gender
+
+        if password:
+            user.password = make_password(password)
+
+        if profile_picture:
+            user.profile_picture = profile_picture
+
+        user.save()
+        messages.success(request, "User updated successfully.")
+        return redirect('registration:users_html')
+
+    return render(request, 'registration/user_form.html', {
+        'title': 'Edit User',
+        'user': user,
+    })
+
+
+# ---------- DELETE USER ----------
+@login_required_view
+def user_delete_html(request, pk):
+    user = get_object_or_404(UserRegistration, pk=pk)
+
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, "User deleted successfully.")
+        return redirect('registration:users_html')
+
+    return render(request, 'registration/user_confirm_delete.html', {
+        'user': user
+    })

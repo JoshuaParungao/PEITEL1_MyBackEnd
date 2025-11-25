@@ -5,10 +5,10 @@
         <meta charset="utf-8" />
         <title>Login</title>
     <style>
-    /* Reset */
+    
     * { margin:0; padding:0; box-sizing:border-box }
 
-    /* Body with background only on this page */
+  
     body {
         background-color: #ffffff; 
         background-image: url('https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/525622336_1211091961058262_2673364536049496629_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=gz4etc-vgvgQ7kNvwET3wr_&_nc_oc=Adkri9EAZfjB6kWhtrk5HZrN5okDxNas5jn5flZRa3VTQ3WMOinbd6h0lE-UIYMvJMc&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=_UcS0m4iDPLHD6wX6Fp7LQ&oh=00_AfgguKNGXCkEyey26RCm4wQPP0cdhH-vBaXfXN1aJXAwuw&oe=6922DDCB');
@@ -26,7 +26,7 @@
     }
 
 
-    /* Login box styling */
+   
     .login-box {
         width: 500px;
         background: rgba(255, 255, 255, 0.95);
@@ -116,7 +116,7 @@
           <button class="login-btn">Log In</button>
       </form>
 
-      <p>Don't have an account? <a href="/signup/">Sign up</a></p>
+    <p>Don't have an account? <a href="{% url 'registration:signup_html' %}">Sign up</a></p>
   </div>
 
   </body>

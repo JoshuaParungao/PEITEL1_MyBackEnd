@@ -13,5 +13,11 @@ urlpatterns = [
     path('login/', views.login_view, name='login_html'),
     path('logout/', views.logout_view, name='logout_html'),
     path('users/', views.users_html, name='users_html'),
+    # HTML CRUD routes
+    path('users/add/', views.user_create_html, name='user_create_html'),
+    path('users/<int:pk>/edit/', views.user_update_html, name='user_update_html'),
+    path('users/<int:pk>/delete/', views.user_delete_html, name='user_delete_html'),
+    # Public signup (allows anonymous users to create an account)
+    path('signup/', views.signup_html, name='signup_html'),
 ]
     
